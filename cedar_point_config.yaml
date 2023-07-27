@@ -1,0 +1,76 @@
+URL_CONFIG:
+  root:
+    base : [
+      https://www.cedarpoint.com/api/v2/calendar/search
+      ]
+    extensions:
+      category_extensions : 
+      sub_category_extensions : 
+      aux_extensions : [
+        a6c255a6-ed71-45a8-a03d-4b5529748542
+        ]
+    concat_str : /
+
+  iterables:
+    date_range:
+      start_date: 2023/07/01
+      end_date: 2023/12/01
+
+  pagination:
+    sep_str : 
+    page_str:
+    equality_str: 
+    start_idx_int:
+
+EXTRACTION:
+  product_level :
+    product_panel : [ article, ivm_G _PT1R ]
+    
+  product_details : 
+    brand : [
+      div, KtWqU FKmne Io521
+      ]
+    name : [
+      h3,  kKGYj TpwNx
+      ]
+    sale_price : [
+      span,  qHz0a EhCiu dls-1n7v84y
+      ]
+    after_sale_price : [
+      span,  fj69a EhCiu dls-1n7v84y
+      ]
+    ratings: [
+      span,  T2Mzf
+      ]
+
+
+DATA_FEATURES:
+  main_features_set : [
+    'title',
+    'type',
+    'model',
+    'sku',
+    'rating',
+    'reviews',
+    'price',
+    'availability',
+    'link',
+    'scraped_date'
+    ]
+
+  aux_features_set : [
+  ]
+
+DRIVER_OPTIONS:
+  webdriver:
+    chrome:
+      driver_path: data\drivers\chrome\chromedriver.exe
+      options: [
+        ["debuggerAddress", "localhost:8989"]
+      ]
+
+  requests:
+    args:
+      headers:
+        accept-language: en-US,en;q=0.9
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36
