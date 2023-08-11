@@ -101,45 +101,6 @@ class ChromePageSourcer(WebDriverPageSourcer):
         )
 
 
-class ConfigReader(ABC):
-    '''
-    abstract class to read config file
-    '''
-    @property
-    @abstractmethod
-    def config_path(self):
-        '''
-        abstract method to store config path
-        '''
-
-    @abstractmethod
-    def read_config(self):
-        '''
-        abstract method to read config file.
-        '''
-
-class YAMLConfigReader(ConfigReader):
-
-    @property
-    def config_path(self):
-        return self._config_path
-            
-    def read_config(self):
-        '''
-        helper function to read config from yaml files.
-        '''
-        with open(self.config_path, 'r') as f:
-            data = YAML().load(f)
-            return data
-        
-    def __init__(
-        self,
-        yaml_config_path,
-        ) -> None:
-        self._config_path = yaml_config_path
-
-
-
 class ISubConfigParser(ABC):
     '''
     abstract class to parse

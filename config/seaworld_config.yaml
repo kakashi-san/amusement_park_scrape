@@ -1,35 +1,13 @@
 URL_CONFIG:
   root:
     base : [
-      https://seaworld.com/api/sitecore
+      https://seaworld.com/api/sitecore/CalendarEvents/LoadCalendarData
       ]
-    extensions:
-      category_extensions : [
-        CalendarEvents/LoadCalendarData,
 
-        ]
-      sub_category_extensions :
-      aux_extensions :
-
-    concat_str : /
-  
-  iterables:
-    item:
-      pre_sep: '?'
-      item_id:
-        01d7932a-e537-476b-b658-e3e4b7f6677f
-
-
+  params: 
     date_range:
-      pre_sep: '&'
       start_date: 2023/07/01
       end_date: 2023/12/01
-
-  pagination:
-    sep_str : 
-    page_str:
-    equality_str: 
-    start_idx_int:
 
 EXTRACTION:
   product_level :
