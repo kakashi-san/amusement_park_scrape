@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
-from typing import Dict
+from typing import Dict, Any
+from dataclasses import dataclass
 
 class IConfigReader(ABC):
     '''
@@ -48,43 +49,12 @@ class IRequestsSourcer(ABC):
         '''
         abstract method to source page
         '''
+# class SWIterParamsGen:
+#     def __init__(
+#         params_path = 
+#     ):
 @dataclass
 class IConfigParamsData(ABC):
     config_params_data: Dict[str, Any]
 
-class IParamsGen(ABC):
-    '''
-    abstract class to generate params
-    using:
-        1. params_data
-        2. config_data
-    '''
-    @property
-    @abstractmethod
-    def params(self):
-        '''
-        abstract method/property to store params data
-        '''
-        return self._params
-
-    @params.setter
-    def params(self, params):
-        '''
-        abstract method/property to store params data
-        '''
-        self._params = params
-
-    def __init__(
-        self,
-        config_params_data: IConfigParamsData
-        ):
-        self._params = config_params_data.config_params_data
-
-    
-    @abstractmethod
-    def generate_params(
-        self,
-        ) -> Dict[str, Any]:
-        '''
-        abstract method to generate params data
-        '''
+# class GenerateURL
