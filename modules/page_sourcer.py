@@ -12,6 +12,7 @@ import calendar
 import datetime 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver import Chrome
+from requests_html import HTMLSession
 
 class PageSourcer(ABC):
     """
@@ -57,10 +58,9 @@ class RequestsPageSourcer(PageSourcer):
             page_url: str,
             **kwargs
     ) -> None:
-        super().__init__(
-            page_url
-        )
+
         self._kwargs = kwargs
+        self._page_url = pag
 
     def get_page_source(self):
         return requests.get(
@@ -69,6 +69,30 @@ class RequestsPageSourcer(PageSourcer):
             timeout=5
             ).content
 
+class RHPageSourcer(PageSourcer):
+    """
+    a class to get page source using requests_html library
+    """
+
+    def __init__(
+            self,
+            page_url: str,
+            **kwargs
+    ) -> None:
+        self._page_url = page_url
+        
+        self._kwargs = kwargs
+
+    def get_page_source(self):
+        session = HTMLSession()
+        ps =  session.get(
+                self._page_url,
+                **self._kwargs,
+                timeout=5
+            )
+        ps.html.render()
+
+        return ps
 
 class ChromePageSourcer(WebDriverPageSourcer):
     """
@@ -99,45 +123,6 @@ class ChromePageSourcer(WebDriverPageSourcer):
         self.driver.get(
             url=self.page_url
         )
-
-
-class ConfigReader(ABC):
-    '''
-    abstract class to read config file
-    '''
-    @property
-    @abstractmethod
-    def config_path(self):
-        '''
-        abstract method to store config path
-        '''
-
-    @abstractmethod
-    def read_config(self):
-        '''
-        abstract method to read config file.
-        '''
-
-class YAMLConfigReader(ConfigReader):
-
-    @property
-    def config_path(self):
-        return self._config_path
-            
-    def read_config(self):
-        '''
-        helper function to read config from yaml files.
-        '''
-        with open(self.config_path, 'r') as f:
-            data = YAML().load(f)
-            return data
-        
-    def __init__(
-        self,
-        yaml_config_path,
-        ) -> None:
-        self._config_path = yaml_config_path
-
 
 
 class ISubConfigParser(ABC):

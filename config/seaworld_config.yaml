@@ -1,0 +1,76 @@
+URL_CONFIG:
+  root:
+    base : [
+      https://seaworld.com/api/sitecore/CalendarEvents/LoadCalendarData
+      ]
+
+  params: 
+    date_range:
+      start_date: 2023/07/01
+      end_date: 2023/12/01
+    link_to_itemId_map:
+      https://seaworld.com/orlando/park-info/theme-park-hours/ : 01d7932a-e537-476b-b658-e3e4b7f6677f
+      https://seaworld.com/san-antonio/park-info/theme-park-hours/ : 187b4728-8684-48fa-9fee-0b1f9bc371a7
+      https://seaworld.com/san-diego/park-info/theme-park-hours/ : a6ac339a-375c-461c-9540-faebba25b60c
+      https://buschgardens.com/tampa/park-info/theme-park-hours/	: e8f949ea-6d1f-4644-b771-45c18d2cd5b4
+      https://buschgardens.com/williamsburg/park-info/theme-park-hours/	: c92c0499-dd8d-42e2-b34a-d69c158f16a0
+      https://sesameplace.com/philadelphia/park-info/park-hours/	: 64664efe-d79c-4fc8-b67b-4287d0e3ec80
+      https://aquatica.com/orlando/park-info/hours/	: 3c9d4ba3-7c87-4d12-a6f1-73c1af58cefc
+      https://aquatica.com/san-antonio/park-info/park-hours/	: f516ae6b-e660-4563-ba45-45b619e09ef4
+      https://adventureisland.com/park-info/water-park-hours/	: e1674ada-3fee-493a-8d2e-f2535ff47ddc
+      https://watercountryusa.com/park-info/water-park-hours/	: 6ee92a89-0df1-4035-bc86-7406bef07f8f
+      https://sesameplace.com/san-diego/park-info/park-hours/	: 5a890592-5e34-420c-a491-0a0d0c8f2695
+
+
+EXTRACTION:
+  product_level :
+    product_panel : [ article, ivm_G _PT1R ]
+    
+  product_details : 
+    brand : [
+      div, KtWqU FKmne Io521
+      ]
+    name : [
+      h3,  kKGYj TpwNx
+      ]
+    sale_price : [
+      span,  qHz0a EhCiu dls-1n7v84y
+      ]
+    after_sale_price : [
+      span,  fj69a EhCiu dls-1n7v84y
+      ]
+    ratings: [
+      span,  T2Mzf
+      ]
+
+
+DATA_FEATURES:
+  main_features_set : [
+    'title',
+    'type',
+    'model',
+    'sku',
+    'rating',
+    'reviews',
+    'price',
+    'availability',
+    'link',
+    'scraped_date'
+    ]
+
+  aux_features_set : [
+  ]
+
+DRIVER_OPTIONS:
+  webdriver:
+    chrome:
+      driver_path: data\drivers\chrome\chromedriver.exe
+      options: [
+        ["debuggerAddress", "localhost:8989"]
+      ]
+
+  requests:
+    args:
+      headers:
+        accept-language: en-US,en;q=0.9
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36
