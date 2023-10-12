@@ -5,10 +5,12 @@ import os
 import calendar
 import datetime
 import requests
+import random
+import time
 from modules.interfaces import IRequestsSourcer, IConfigParamsData
 api_data_path = Path('data/input/seaworld/seaworld_api_data.xlsx')
 api_data = pd.read_excel(api_data_path)
-start_date = '2023-08-11'
+start_date = '2023-08-01'
 end_date = '2023-12-31'
 
 class DateParamsGen:
@@ -143,6 +145,7 @@ class GetRequestsSourcer(IRequestsSourcer):
 
 init_df = []
 for _, api_row in api_data.iterrows():
+    # (idx, api_row)
     swpsg = SWParamsSetGen(
         start_date=start_date,
         end_date=end_date
@@ -160,6 +163,7 @@ for _, api_row in api_data.iterrows():
             url=api_url,
             params=params
             )
+        time.sleep(random.randint(1, 5))
         page_src = gps.source_page().json()
         response_url = gps.source_page().url
         raw_data = transform_data(page_src)

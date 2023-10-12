@@ -3,11 +3,19 @@ from pathlib import Path
 from modules.interfaces import IRequestsSourcer, IConfigParamsData
 import requests
 import datetime
+from random import randint
+from time import sleep
+import os
+from os.path import join as opj
+from pathlib import Path
 
 start_date = '2023-08-11'
 end_date = '2023-12-31'
 api_data_path = Path('data/input/cedarpoint/cedar_point.xlsx')
 api_data = pd.read_excel(api_data_path)
+api_data = api_data.drop_duplicates(subset=['URL'])
+api_data = api_data.reset_index(drop=True)
+output_dir = Path('long_path/to/my_dir')
 
 class GetRequestsSourcer(IRequestsSourcer):
     def source_page(self):
@@ -93,7 +101,7 @@ months_range = generate_date_range(start_date, end_date)
 
 collect = []
 
-for _, api_row in api_data.iterrows():
+for idx, api_row in api_data.iterrows():
     api_url = api_row['API endpoint']
     ticker = api_row['Company']
     park_name = api_row['Park Name']
@@ -104,6 +112,7 @@ for _, api_row in api_data.iterrows():
         get_url = "/".join(
             [api_url, month]
             )
+        sleep(randint(1,5))
 
         print('----------------------------')
         print(get_url)
@@ -121,11 +130,18 @@ for _, api_row in api_data.iterrows():
             breakpoint()
         raw_data['ticker'] = ticker
         raw_data['park_name'] = park_name
+        output_dir.mkdir(parents=True, exist_ok=True)
+        op_dir = output_dir / ticker / park_name / month
+        op_dir.mkdir(parents=True, exist_ok=True)
 
+        raw_data.to_csv(
+                op_dir / 'data.csv',
+            )
 
         collect.append(raw_data)
-
-pd.concat(collect).to_excel('cedarpoint_data.xlsx')
+concat_data = pd.concat(collect)
+# concat_data['park_type'] = concat_data['park_type']
+# .to_excel('cedarpoint_data.xlsx')
 
 
 
